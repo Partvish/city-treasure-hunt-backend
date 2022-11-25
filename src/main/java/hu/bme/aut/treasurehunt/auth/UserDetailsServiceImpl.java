@@ -21,13 +21,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findById(s);
+        Optional<User> user = userRepository.findUserByName(s);
         if(user.isEmpty())
             throw new UsernameNotFoundException(s + " is an invalid username");
         else {
             return new UserDetailsImpl(user.get());
         }
     }
+
 
 
 }

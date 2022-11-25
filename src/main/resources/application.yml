@@ -18,17 +18,7 @@ spring:
     username: root
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/treasurehunting
-
-
-mail:
-  host: smtp.mailtrap.io
-  port: 2525
-  username: bd21da060388b3
-  password: 1c5f38e2ea3548
-  properties.mail.smtp:
-    auth: true
-    starttls.enable: true
+    url: jdbc:mysql://172.23.30.105:3306/treasurehunting
 
 logging:
   level:
