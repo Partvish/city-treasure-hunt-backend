@@ -1,5 +1,6 @@
 package hu.bme.aut.treasurehunt.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -18,10 +19,12 @@ public class UserQuest {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "quest_id", nullable = false)
     private Quest quest;
 

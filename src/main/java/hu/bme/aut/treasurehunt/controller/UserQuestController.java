@@ -22,19 +22,16 @@ public class UserQuestController {
     @Autowired
     private UserQuestService userQuestService;
 
-    @PostMapping("accept")
+    @PostMapping("/accept")
     @Secured(UserRole.Normal)
     public ResponseEntity<?> acceptUserQuest(Principal principal, @RequestBody AcceptUserQuestDto acceptUserQuestDto){
         Optional<UserQuest> userQuest = userQuestService.acceptUserQuest(principal, acceptUserQuestDto);
         if(userQuest.isEmpty())
             return ResponseEntity.badRequest().build();
-        return ResponseEntity.ok(new StartedUserQuestDto(
-                userQuest.get().getQuest().getOptions(),
-                userQuest.get().getQuest().getDescription())
-        );
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("abandon/{quest_id}")
+    @PostMapping("/abandon/{quest_id}")
     @Secured(UserRole.Normal)
     public ResponseEntity<?> abandonUserQuest(Principal principal, @PathVariable Long quest_id){
         if(userQuestService.abandonUserQuest(principal, quest_id))
@@ -42,7 +39,7 @@ public class UserQuestController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("finish/{quest_id}")
+    @PostMapping("/finish/{quest_id}")
     @Secured(UserRole.Normal)
     public ResponseEntity<FinishUserQuestDto> finishUserQuest(Principal principal, @PathVariable Long quest_id, @RequestBody AnswerUserQuestDto answerUserQuestDto){
         if(userQuestService.finishUserQuest(principal, quest_id, answerUserQuestDto)){
@@ -51,7 +48,7 @@ public class UserQuestController {
         return ResponseEntity.ok(new FinishUserQuestDto("wrong"));
     }
 
-    @GetMapping("{quest_id}")
+    @GetMapping("/{quest_id}")
     @Secured(UserRole.Normal)
     public ResponseEntity<?> getUserQuest(Principal principal, @PathVariable Long quest_id){
         Optional<UserQuest> userQuest = userQuestService.getUserQuest(principal, quest_id);
@@ -63,7 +60,7 @@ public class UserQuestController {
         );
     }
 
-    @GetMapping("state/{quest_id}")
+    @GetMapping("/state/{quest_id}")
     @Secured(UserRole.Normal)
     public ResponseEntity<?> getUserQuestState(Principal principal, @PathVariable Long quest_id){
         Optional<UserQuest> userQuest = userQuestService.getUserQuest(principal, quest_id);

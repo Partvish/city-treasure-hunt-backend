@@ -1,4 +1,4 @@
 package hu.bme.aut.treasurehunt.model.constants;
 
-public enum QuestType {
+public abstract class QuestType {
 }

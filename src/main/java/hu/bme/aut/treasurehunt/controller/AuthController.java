@@ -43,7 +43,7 @@ public class AuthController {
     }
 
     @PutMapping("modify")
-    @Secured(UserRole.Normal)
+    @Secured({UserRole.Admin, UserRole.Normal})
     public ResponseEntity<?> modify(Principal principal, @RequestBody UserDto userIn){
         if(authService.modifyUser(principal, userIn)){
             logger.debug("modfiy: User profile data modification was requested to User with Name(" + userIn.name +")");

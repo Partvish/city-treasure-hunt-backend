@@ -6,4 +6,7 @@ public class FinishUserQuestDto {
     public FinishUserQuestDto(String status) {
         this.status = status;
     }
+
+    public FinishUserQuestDto() {
+    }
 }

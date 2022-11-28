@@ -1,6 +1,7 @@
 package hu.bme.aut.treasurehunt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import hu.bme.aut.treasurehunt.model.dtos.QuestDto;
 
 import javax.persistence.Entity;
@@ -36,9 +37,11 @@ public class Quest {
     private float latitude;
 
     @OneToMany(mappedBy = "quest")
+    @JsonManagedReference
     private List<Suggestion> suggestions;
 
     @OneToMany(mappedBy = "quest")
+    @JsonManagedReference
     private List<UserQuest> userQuests;
 
     public Long getId() {

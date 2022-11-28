@@ -6,4 +6,7 @@ public class AnswerUserQuestDto {
     public AnswerUserQuestDto(String answer) {
         this.answer = answer;
     }
+
+    public AnswerUserQuestDto() {
+    }
 }
