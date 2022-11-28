@@ -34,6 +34,7 @@ public class SuggestionService {
         suggestion.setDescription(suggestionDto.description);
         suggestion.setQuest(quest.get());
         suggestion.setUser(user.get());
+        suggestion.setId(-1);
         return Optional.of(suggestionRepository.save(suggestion));
     }
 

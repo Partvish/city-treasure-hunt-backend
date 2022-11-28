@@ -14,6 +14,6 @@ public class LeaderboardService {
 
     public List<UserScore> getUserScores(){
         List<User> users =  userService.getUsers();
-        return users.stream().map(e-> new UserScore(e.getName(), e.getPoints())).toList();
+        return users.stream().map(e-> new UserScore(e.getName(), e.getPoints())).sorted((a, b)-> b.score-a.score).toList();
     }
 }

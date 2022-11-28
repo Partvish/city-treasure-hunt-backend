@@ -36,10 +36,10 @@ public class SuggestionController {
 
     @PostMapping
     @Secured({UserRole.Admin, UserRole.Normal})
-    public ResponseEntity<Suggestion> create(@RequestBody SuggestionDto suggestionDto){
+    public ResponseEntity<?> create(@RequestBody SuggestionDto suggestionDto){
         Optional<Suggestion> suggestion = suggestionService.makeSuggestion(suggestionDto);
         if(suggestion.isPresent()){
-            return ResponseEntity.ok(suggestion.get());
+            return ResponseEntity.ok().build();
         }
         else{
             return ResponseEntity.badRequest().build();

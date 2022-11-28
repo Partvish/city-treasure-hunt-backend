@@ -27,14 +27,17 @@ public class UserQuestService {
     public Optional<UserQuest> acceptUserQuest(Principal principal, AcceptUserQuestDto acceptUserQuestDto) {
         Optional<User> u = userService.getUser(principal);
         Optional<Quest> q = questService.getQuest(acceptUserQuestDto.quest_id);
+        if(u.isEmpty())
+            return Optional.empty();
         if(q.isEmpty())
             return Optional.empty();
         Quest quest = q.get();
-        if(Math.abs(quest.getLatitude() - acceptUserQuestDto.latitude) > 2 || Math.abs(quest.getLongitude() - acceptUserQuestDto.longitude) > 2)
-            return Optional.empty();
-        if(u.isEmpty())
-            return Optional.empty();
+       /* if(Math.abs(quest.getLatitude() - acceptUserQuestDto.latitude) > 2 || Math.abs(quest.getLongitude() - acceptUserQuestDto.longitude) > 2)
+            return Optional.empty();*//*
         if(u.get().getUserQuests().stream().anyMatch(e-> e.getQuest().getId().equals(acceptUserQuestDto.quest_id)))
+            return Optional.empty();*/
+        Optional<UserQuest> uq = userQuestRepository.findByQuestAndUser(quest, u.get());
+        if(uq.isPresent())
             return Optional.empty();
 
         UserQuest userQuest = new UserQuest();

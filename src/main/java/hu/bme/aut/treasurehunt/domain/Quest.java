@@ -1,6 +1,7 @@
 package hu.bme.aut.treasurehunt.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import hu.bme.aut.treasurehunt.model.dtos.QuestDto;
 
 import javax.persistence.Entity;
@@ -27,6 +28,8 @@ public class Quest {
     @NotBlank
     private String answer;
 
+    private String name;
+
     @NotNull
     private float longitude;
 
@@ -34,9 +37,11 @@ public class Quest {
     private float latitude;
 
     @OneToMany(mappedBy = "quest")
+    @JsonManagedReference
     private List<Suggestion> suggestions;
 
     @OneToMany(mappedBy = "quest")
+    @JsonManagedReference
     private List<UserQuest> userQuests;
 
     public Long getId() {
@@ -112,6 +117,14 @@ public class Quest {
         this.userQuests = userQuests;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Quest() {
     }
 
@@ -119,6 +132,7 @@ public class Quest {
     public Quest(QuestDto questDto){
         id = questDto.id;
         point = questDto.point;
+        name = questDto.name;
         description = questDto.description;
         options = questDto.options;
         answer = questDto.answer;

@@ -1,6 +1,8 @@
 package hu.bme.aut.treasurehunt.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import hu.bme.aut.treasurehunt.model.constants.UserRole;
 import hu.bme.aut.treasurehunt.model.dtos.UserDto;
 
@@ -35,9 +37,11 @@ public class User {
     private String role = UserRole.Normal;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<Suggestion> suggestions;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<UserQuest> userQuests;
 
     private int points;
@@ -119,6 +123,7 @@ public class User {
 
     @JsonIgnore
     public User(UserDto dto){
+        this.id = dto.id;
         this.email = dto.email;
         this.name = dto.name;
         this.role = dto.role;
@@ -128,7 +133,7 @@ public class User {
 
     @JsonIgnore
     public UserDto getDto(){
-        return new UserDto(name, email, password, role, points);
+        return new UserDto(id, name, email, password, role, points);
     }
 }
 
