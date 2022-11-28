@@ -27,6 +27,8 @@ public class Quest {
     @NotBlank
     private String answer;
 
+    private String name;
+
     @NotNull
     private float longitude;
 
@@ -112,6 +114,14 @@ public class Quest {
         this.userQuests = userQuests;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Quest() {
     }
 
@@ -119,6 +129,7 @@ public class Quest {
     public Quest(QuestDto questDto){
         id = questDto.id;
         point = questDto.point;
+        name = questDto.name;
         description = questDto.description;
         options = questDto.options;
         answer = questDto.answer;

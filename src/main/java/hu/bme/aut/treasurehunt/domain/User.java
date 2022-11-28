@@ -119,6 +119,7 @@ public class User {
 
     @JsonIgnore
     public User(UserDto dto){
+        this.id = dto.id;
         this.email = dto.email;
         this.name = dto.name;
         this.role = dto.role;
@@ -128,7 +129,7 @@ public class User {
 
     @JsonIgnore
     public UserDto getDto(){
-        return new UserDto(name, email, password, role, points);
+        return new UserDto(id, name, email, password, role, points);
     }
 }
 

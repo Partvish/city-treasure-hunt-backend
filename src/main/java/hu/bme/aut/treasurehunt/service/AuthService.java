@@ -1,6 +1,7 @@
 package hu.bme.aut.treasurehunt.service;
 
 import hu.bme.aut.treasurehunt.domain.User;
+import hu.bme.aut.treasurehunt.model.constants.UserRole;
 import hu.bme.aut.treasurehunt.model.dtos.UserDto;
 import hu.bme.aut.treasurehunt.repository.UserRepository;
 import org.slf4j.Logger;
@@ -24,9 +25,8 @@ public class AuthService {
     @Autowired
     private UserService userService;
 
-    public boolean registerUser(UserDto userIn){
-        Optional<User> user = userService.createUser(userIn);
-        return user.isPresent();
+    public Optional<User> registerUser(UserDto userIn){
+        return userService.createUser(userIn);
     }
 
     public boolean modifyUser(Principal principal, UserDto userIn){
@@ -37,5 +37,14 @@ public class AuthService {
     public Optional<User> loginUser(Principal principal) {
         logger.debug("login: User login done with Name("+principal.getName()+")");
         return userService.getUser(principal);
+    }
+
+    public String getRole(Principal principal){
+        Optional<User> user = userService.getUser(principal);
+        if(user.isEmpty())
+            return "";
+        if(user.get().getRole().equals(UserRole.Admin))
+            return UserRole.Admin;
+        return UserRole.Normal;
     }
 }

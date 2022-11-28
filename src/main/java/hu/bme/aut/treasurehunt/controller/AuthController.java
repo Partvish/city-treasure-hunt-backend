@@ -31,9 +31,10 @@ public class AuthController {
 
     @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody UserDto userIn){
-        if(authService.registerUser(userIn)){
+        Optional<User> user = authService.registerUser(userIn);
+        if(user.isPresent()){
             logger.debug("register: User registered with Email("+ userIn.email +")");
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(user.get().getDto());
         }
         else {
             logger.debug("register: User registration failed. User already exists with Name("+ userIn.name +")");
@@ -54,11 +55,9 @@ public class AuthController {
         }
     }
 
-    @GetMapping("login")
+    @PostMapping("login")
     @Secured({UserRole.Admin, UserRole.Normal})
     public ResponseEntity<?> login(Principal principal){
-        logger.debug("HARRRY POTTER:");
-        logger.debug(principal.toString());
         Optional<User> user = authService.loginUser(principal);
         if(user.isPresent())
             return ResponseEntity.ok(user.get().getDto());

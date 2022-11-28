@@ -42,9 +42,6 @@ public class QuestService {
     }
 
     public Optional<Quest> createQuest(QuestDto questDto) {
-        Optional<Quest> q = questRepository.findById(questDto.id);
-        if(q.isPresent())
-            return Optional.empty();
         questDto.id = null;
         Quest quest = new Quest(questDto);
         return Optional.of(questRepository.save(quest));

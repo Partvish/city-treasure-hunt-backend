@@ -21,3 +21,4 @@ public class QuestDto {
         this.latitude = latitude;
     }
 }
+
